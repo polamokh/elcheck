@@ -7,7 +7,7 @@ import me.polamokh.elcheck.data.local.order.Order
 data class OrderWithValuesAdded(
     @Embedded val order: Order,
     @Relation(
-        parentColumn = "id",
+        parentColumn = "order_id",
         entityColumn = "order_id"
     )
     val valueAdded: List<ValueAdded>

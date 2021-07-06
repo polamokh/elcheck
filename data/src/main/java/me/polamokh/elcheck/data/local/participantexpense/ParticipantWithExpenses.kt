@@ -9,8 +9,8 @@ import me.polamokh.elcheck.data.local.participant.Participant
 data class ParticipantWithExpenses(
     @Embedded val participant: Participant,
     @Relation(
-        parentColumn = "id",
-        entityColumn = "participant_id",
+        parentColumn = "participant_id",
+        entityColumn = "expense_id",
         associateBy = Junction(ParticipantExpense::class)
     )
     val expenses: List<Expense>

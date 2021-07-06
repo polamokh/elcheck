@@ -17,6 +17,6 @@ interface ExpenseDao {
     @Query("SELECT * FROM expenses WHERE order_id = :orderId")
     suspend fun getOrderExpensesByOrderId(orderId: Int): List<Expense>
 
-    @Query("SELECT * FROM expenses WHERE id = :expenseId")
+    @Query("SELECT * FROM expenses WHERE expense_id = :expenseId")
     suspend fun getExpenseById(expenseId: Int): Expense?
 }

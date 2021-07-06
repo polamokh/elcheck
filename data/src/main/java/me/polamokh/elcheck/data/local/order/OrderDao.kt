@@ -14,21 +14,21 @@ interface OrderDao {
     @Delete
     suspend fun deleteOrders(vararg orders: Order)
 
-    @Query("SELECT * FROM orders WHERE id = :orderId")
+    @Query("SELECT * FROM orders WHERE order_id = :orderId")
     suspend fun getOrderById(orderId: Int): Order?
 
     @Query("SELECT * FROM orders ORDER BY order_time")
     suspend fun getOrders(): List<Order>
 
     @Transaction
-    @Query("SELECT * FROM orders WHERE id = :orderId")
+    @Query("SELECT * FROM orders WHERE order_id = :orderId")
     suspend fun getOrderByIdWithParticipants(orderId: Int): OrderWithParticipants?
 
     @Transaction
-    @Query("SELECT * FROM orders WHERE id = :orderId")
+    @Query("SELECT * FROM orders WHERE order_id = :orderId")
     suspend fun getOrderByIdWithExpenses(orderId: Int): OrderWithExpenses?
 
     @Transaction
-    @Query("SELECT * FROM orders WHERE id = :orderId")
+    @Query("SELECT * FROM orders WHERE order_id = :orderId")
     suspend fun getOrderByIdWithValuesAdded(orderId: Int): OrderWithValuesAdded?
 }

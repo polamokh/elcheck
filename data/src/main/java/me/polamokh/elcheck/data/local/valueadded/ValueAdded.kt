@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "values_added")
 data class ValueAdded(
-    @PrimaryKey val id: Int,
+    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "value_added_id") val valueAddedId: Int = 1,
     val isPercentage: Boolean,
     val value: Double,
     @ColumnInfo(name = "order_id") val orderId: Int

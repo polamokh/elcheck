@@ -17,6 +17,6 @@ interface ValueAddedDao {
     @Query("SELECT * FROM values_added WHERE order_id = :orderId")
     suspend fun getOrderValuesAddedByOrderId(orderId: Int): List<ValueAdded>
 
-    @Query("SELECT * FROM values_added WHERE id = :valueAddedId")
+    @Query("SELECT * FROM values_added WHERE value_added_id = :valueAddedId")
     suspend fun getValueAddedById(valueAddedId: Int): ValueAdded?
 }
