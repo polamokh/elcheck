@@ -1,5 +1,6 @@
 package me.polamokh.elcheck.data.local.expense
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -15,7 +16,7 @@ interface ExpenseDao {
     suspend fun deleteExpenses(vararg expenses: Expense)
 
     @Query("SELECT * FROM expenses WHERE order_id = :orderId")
-    suspend fun getOrderExpensesByOrderId(orderId: Int): List<Expense>
+    fun getOrderExpensesByOrderId(orderId: Int): LiveData<List<Expense>>
 
     @Query("SELECT * FROM expenses WHERE expense_id = :expenseId")
     suspend fun getExpenseById(expenseId: Int): Expense?

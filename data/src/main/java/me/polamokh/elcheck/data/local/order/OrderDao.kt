@@ -1,5 +1,6 @@
 package me.polamokh.elcheck.data.local.order
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import me.polamokh.elcheck.data.local.expense.OrderWithExpenses
 import me.polamokh.elcheck.data.local.participant.OrderWithParticipants
@@ -18,7 +19,7 @@ interface OrderDao {
     suspend fun getOrderById(orderId: Int): Order?
 
     @Query("SELECT * FROM orders ORDER BY order_time")
-    suspend fun getOrders(): List<Order>
+    fun getOrders(): LiveData<List<Order>>
 
     @Transaction
     @Query("SELECT * FROM orders WHERE order_id = :orderId")

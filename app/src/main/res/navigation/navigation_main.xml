@@ -2,10 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/navigation_main"
-    app:startDestination="@id/ordersFragment">
+    app:startDestination="@id/navigation_elcheck">
 
-    <fragment
-        android:id="@+id/ordersFragment"
-        android:name="me.polamokh.elcheck.orders.OrdersFragment"
-        android:label="OrdersFragment" />
+    <include app:graph="@navigation/navigation_elcheck" />
 </navigation>

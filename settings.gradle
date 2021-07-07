@@ -1,4 +1,4 @@
 rootProject.name = "Elcheck"
 include ':app'
 include ':data'
-include ':features:orders'
+include ':core'
