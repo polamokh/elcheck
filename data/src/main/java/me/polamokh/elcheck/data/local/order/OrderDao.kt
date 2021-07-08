@@ -9,27 +9,27 @@ import me.polamokh.elcheck.data.local.valueadded.OrderWithValuesAdded
 @Dao
 interface OrderDao {
 
-    @Insert
-    suspend fun insertOrders(vararg orders: Order)
+    @Insert()
+    suspend fun insertOrders(vararg orders: Order): List<Long>
 
     @Delete
     suspend fun deleteOrders(vararg orders: Order)
 
     @Query("SELECT * FROM orders WHERE order_id = :orderId")
-    suspend fun getOrderById(orderId: Int): Order?
+    suspend fun getOrderById(orderId: Long): Order?
 
     @Query("SELECT * FROM orders ORDER BY order_time")
     fun getOrders(): LiveData<List<Order>>
 
     @Transaction
     @Query("SELECT * FROM orders WHERE order_id = :orderId")
-    suspend fun getOrderByIdWithParticipants(orderId: Int): OrderWithParticipants?
+    suspend fun getOrderByIdWithParticipants(orderId: Long): OrderWithParticipants?
 
     @Transaction
     @Query("SELECT * FROM orders WHERE order_id = :orderId")
-    suspend fun getOrderByIdWithExpenses(orderId: Int): OrderWithExpenses?
+    suspend fun getOrderByIdWithExpenses(orderId: Long): OrderWithExpenses?
 
     @Transaction
     @Query("SELECT * FROM orders WHERE order_id = :orderId")
-    suspend fun getOrderByIdWithValuesAdded(orderId: Int): OrderWithValuesAdded?
+    suspend fun getOrderByIdWithValuesAdded(orderId: Long): OrderWithValuesAdded?
 }

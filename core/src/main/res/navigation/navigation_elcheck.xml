@@ -21,6 +21,6 @@
         tools:layout="@layout/fragment_participants_list">
         <argument
             android:name="orderId"
-            app:argType="integer" />
+            app:argType="long" />
     </fragment>
 </navigation>

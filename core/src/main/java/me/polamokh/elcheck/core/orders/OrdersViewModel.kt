@@ -29,4 +29,12 @@ class OrdersViewModel @Inject constructor(private val orderDao: OrderDao) : View
             }
         }
     }
+
+    fun removeOrder(order: Order) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                orderDao.deleteOrders(order)
+            }
+        }
+    }
 }

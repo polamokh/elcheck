@@ -14,7 +14,7 @@ import me.polamokh.elcheck.data.local.valueadded.ValueAddedDao
 
 @Database(
     entities = [Order::class, Participant::class, Expense::class, ValueAdded::class, ParticipantExpense::class],
-    version = 1,
+    version = 3,
     exportSchema = false
 )
 abstract class ElCheckDatabase : RoomDatabase() {

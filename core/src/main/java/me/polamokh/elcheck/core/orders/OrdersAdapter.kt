@@ -8,7 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import me.polamokh.elcheck.core.databinding.ItemOrderBinding
 import me.polamokh.elcheck.data.local.order.Order
 
-class OrdersAdapter(private val onClickListener: (order: Order) -> Unit) :
+class OrdersAdapter(
+    private val onClickListener: (order: Order) -> Unit,
+    private val onLongClickListener: (order: Order) -> Boolean
+) :
     ListAdapter<Order, OrdersAdapter.OrdersViewHolder>(OrderDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrdersViewHolder {
@@ -18,6 +21,7 @@ class OrdersAdapter(private val onClickListener: (order: Order) -> Unit) :
     override fun onBindViewHolder(holder: OrdersViewHolder, position: Int) {
         val item = getItem(position)
         holder.itemView.setOnClickListener { onClickListener(item) }
+        holder.itemView.setOnLongClickListener { onLongClickListener(item) }
         holder.bind(item)
     }
 

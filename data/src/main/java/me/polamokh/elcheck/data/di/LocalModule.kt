@@ -22,6 +22,7 @@ object LocalModule {
             ElCheckDatabase::class.java,
             "elcheck.db"
         )
+            .fallbackToDestructiveMigration()
             .build()
     }
 

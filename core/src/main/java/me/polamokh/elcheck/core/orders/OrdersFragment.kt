@@ -32,13 +32,16 @@ class OrdersFragment : Fragment() {
         viewModel = ViewModelProvider(this)
             .get(OrdersViewModel::class.java)
 
-        val ordersAdapter = OrdersAdapter {
+        val ordersAdapter = OrdersAdapter({
             findNavController().navigate(
                 OrdersFragmentDirections.actionOrdersFragmentToParticipantsListFragment(
                     it.orderId
                 )
             )
-        }
+        }, {
+            viewModel.removeOrder(it)
+            true
+        })
         binding.ordersRecyclerView.apply {
             this.adapter = ordersAdapter
         }
