@@ -34,7 +34,7 @@ class OrdersFragment : Fragment() {
 
         val ordersAdapter = OrdersAdapter({
             findNavController().navigate(
-                OrdersFragmentDirections.actionOrdersFragmentToParticipantsListFragment(
+                OrdersFragmentDirections.actionOrdersFragmentToOrderDetailsFragment(
                     it.orderId
                 )
             )

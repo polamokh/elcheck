@@ -11,14 +11,14 @@
         android:label="fragment_orders"
         tools:layout="@layout/fragment_orders">
         <action
-            android:id="@+id/action_ordersFragment_to_participantsListFragment"
-            app:destination="@id/participantsListFragment" />
+            android:id="@+id/action_ordersFragment_to_orderDetailsFragment"
+            app:destination="@id/orderDetailsFragment" />
     </fragment>
     <fragment
-        android:id="@+id/participantsListFragment"
-        android:name="me.polamokh.elcheck.core.participants.list.ParticipantsListFragment"
-        android:label="fragment_participants_list"
-        tools:layout="@layout/fragment_participants_list">
+        android:id="@+id/orderDetailsFragment"
+        android:name="me.polamokh.elcheck.core.orders.details.OrderDetailsFragment"
+        android:label="fragment_order_details"
+        tools:layout="@layout/fragment_order_details">
         <argument
             android:name="orderId"
             app:argType="long" />

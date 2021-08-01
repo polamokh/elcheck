@@ -45,9 +45,10 @@ class ParticipantsListFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance() =
+        fun newInstance(orderId: Long) =
             ParticipantsListFragment().apply {
                 arguments = Bundle().apply {
+                    putLong("orderId", orderId)
                 }
             }
     }
