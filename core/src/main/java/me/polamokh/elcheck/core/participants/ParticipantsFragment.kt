@@ -1,42 +1,47 @@
-package me.polamokh.elcheck.core.participants.list
+package me.polamokh.elcheck.core.participants
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
-import me.polamokh.elcheck.core.databinding.FragmentParticipantsListBinding
+import me.polamokh.elcheck.core.databinding.FragmentParticipantsBinding
 
 @AndroidEntryPoint
-class ParticipantsListFragment : Fragment() {
+class ParticipantsFragment : Fragment() {
 
-    private lateinit var binding: FragmentParticipantsListBinding
+    private lateinit var binding: FragmentParticipantsBinding
 
-    private lateinit var viewModel: ParticipantsListViewModel
+    private val viewModel: ParticipantsViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentParticipantsListBinding.inflate(inflater, container, false)
+        binding = FragmentParticipantsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(this)
-            .get(ParticipantsListViewModel::class.java)
-
-        val participantsListAdapter = ParticipantsListAdapter()
+        val participantsAdapter = ParticipantsAdapter()
         binding.participantsRecyclerView.apply {
-            adapter = participantsListAdapter
+            adapter = participantsAdapter
         }
 
         viewModel.participants.observe(viewLifecycleOwner) {
-            participantsListAdapter.submitList(it)
+            viewModel.getParticipantExpenses()
+        }
+
+        viewModel.expenses.observe(viewLifecycleOwner) {
+            viewModel.getParticipantExpenses()
+        }
+
+        viewModel.participantExpenses.observe(viewLifecycleOwner) {
+            participantsAdapter.submitList(it)
         }
 
         binding.addParticipant.setOnClickListener {
@@ -46,7 +51,7 @@ class ParticipantsListFragment : Fragment() {
 
     companion object {
         fun newInstance(orderId: Long) =
-            ParticipantsListFragment().apply {
+            ParticipantsFragment().apply {
                 arguments = Bundle().apply {
                     putLong("orderId", orderId)
                 }

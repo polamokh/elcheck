@@ -5,12 +5,12 @@
     <data>
 
         <variable
-            name="participantWithExpenses"
-            type="me.polamokh.elcheck.data.local.participantexpense.ParticipantWithExpenses" />
+            name="expense"
+            type="me.polamokh.elcheck.data.local.expense.Expense" />
     </data>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingTop="8dp"
@@ -19,16 +19,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{participantWithExpenses.participant.name}"
+            android:text="@{String.valueOf(expense.value)}"
             android:textAppearance="?attr/textAppearanceHeadline6"
             android:textSize="20sp"
-            tools:text="Name" />
-
-        <TextView
-            android:id="@+id/participant_expenses"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="20.00" />
-
+            tools:text="50.0" />
     </LinearLayout>
 </layout>

@@ -41,4 +41,9 @@ object LocalModule {
     @Singleton
     @Provides
     fun provideValueAddedDao(elCheckDatabase: ElCheckDatabase) = elCheckDatabase.valueAddedDao()
+
+    @Singleton
+    @Provides
+    fun provideParticipantExpenseDao(elCheckDatabase: ElCheckDatabase) =
+        elCheckDatabase.participantExpenseDao()
 }

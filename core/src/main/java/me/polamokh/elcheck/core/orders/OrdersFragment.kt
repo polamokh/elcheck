@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import me.polamokh.elcheck.core.databinding.FragmentOrdersBinding
@@ -15,7 +15,7 @@ class OrdersFragment : Fragment() {
 
     private lateinit var binding: FragmentOrdersBinding
 
-    private lateinit var viewModel: OrdersViewModel
+    private val viewModel: OrdersViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,9 +28,6 @@ class OrdersFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        viewModel = ViewModelProvider(this)
-            .get(OrdersViewModel::class.java)
 
         val ordersAdapter = OrdersAdapter({
             findNavController().navigate(

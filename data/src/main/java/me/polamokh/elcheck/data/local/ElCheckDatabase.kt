@@ -9,6 +9,7 @@ import me.polamokh.elcheck.data.local.order.OrderDao
 import me.polamokh.elcheck.data.local.participant.Participant
 import me.polamokh.elcheck.data.local.participant.ParticipantDao
 import me.polamokh.elcheck.data.local.participantexpense.ParticipantExpense
+import me.polamokh.elcheck.data.local.participantexpense.ParticipantExpenseDao
 import me.polamokh.elcheck.data.local.valueadded.ValueAdded
 import me.polamokh.elcheck.data.local.valueadded.ValueAddedDao
 
@@ -26,4 +27,6 @@ abstract class ElCheckDatabase : RoomDatabase() {
     abstract fun expenseDao(): ExpenseDao
 
     abstract fun valueAddedDao(): ValueAddedDao
+
+    abstract fun participantExpenseDao(): ParticipantExpenseDao
 }

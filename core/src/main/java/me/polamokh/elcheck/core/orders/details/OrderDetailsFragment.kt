@@ -7,11 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.tabs.TabLayoutMediator
-import dagger.hilt.android.AndroidEntryPoint
 import me.polamokh.elcheck.core.databinding.FragmentOrderDetailsBinding
-import me.polamokh.elcheck.core.participants.list.ParticipantsListFragment
+import me.polamokh.elcheck.core.expenses.ExpensesFragment
+import me.polamokh.elcheck.core.participants.ParticipantsFragment
 
-@AndroidEntryPoint
 class OrderDetailsFragment : Fragment() {
 
     private lateinit var binding: FragmentOrderDetailsBinding
@@ -30,7 +29,8 @@ class OrderDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val fragments = listOf<Fragment>(
-            ParticipantsListFragment.newInstance(args.orderId)
+            ParticipantsFragment.newInstance(args.orderId),
+            ExpensesFragment.newInstance(args.orderId)
         )
 
         binding.viewPager.adapter = FragmentAdapter(this, fragments)
@@ -38,7 +38,8 @@ class OrderDetailsFragment : Fragment() {
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = when (position) {
                 0 -> "Participants"
-                else -> "Expenses"
+                1 -> "Expenses"
+                else -> "Values Added"
             }
         }.attach()
     }
