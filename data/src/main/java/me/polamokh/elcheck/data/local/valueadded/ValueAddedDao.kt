@@ -16,7 +16,13 @@ interface ValueAddedDao {
     suspend fun deleteValuesAdded(vararg valuesAdded: ValueAdded)
 
     @Query("SELECT * FROM values_added WHERE order_id = :orderId")
-    fun getOrderValuesAddedByOrderId(orderId: Long): LiveData<List<ValueAdded>>
+    fun getValuesAddedByOrderId(orderId: Long): LiveData<List<ValueAdded>>
+
+    @Query("SELECT SUM(value) FROM values_added WHERE order_id = :orderId AND isPercentage = 1")
+    suspend fun getTotalPercentageValuesAddedByOrderId(orderId: Long): Double?
+
+    @Query("SELECT SUM(value) FROM values_added WHERE order_id = :orderId AND isPercentage = 0")
+    suspend fun getTotalAmountValuesAddedByOrderId(orderId: Long): Double?
 
     @Query("SELECT * FROM values_added WHERE value_added_id = :valueAddedId")
     suspend fun getValueAddedById(valueAddedId: Long): ValueAdded?

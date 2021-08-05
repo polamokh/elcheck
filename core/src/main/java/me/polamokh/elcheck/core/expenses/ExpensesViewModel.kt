@@ -19,7 +19,7 @@ class ExpensesViewModel @Inject constructor(
     private val state: SavedStateHandle
 ) : ViewModel() {
 
-    val expenses = expenseDao.getOrderExpensesByOrderId(
+    val expenses = expenseDao.getExpensesByOrderId(
         state.get<Long>("orderId")!!
     )
 

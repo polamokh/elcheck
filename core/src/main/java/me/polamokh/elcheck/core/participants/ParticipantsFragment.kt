@@ -33,11 +33,15 @@ class ParticipantsFragment : Fragment() {
         }
 
         viewModel.participants.observe(viewLifecycleOwner) {
-            viewModel.getParticipantExpenses()
+            it?.let {
+                viewModel.getParticipantExpenses()
+            }
         }
 
         viewModel.expenses.observe(viewLifecycleOwner) {
-            viewModel.getParticipantExpenses()
+            it?.let {
+                viewModel.getParticipantExpenses()
+            }
         }
 
         viewModel.participantExpenses.observe(viewLifecycleOwner) {

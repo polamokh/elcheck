@@ -32,7 +32,7 @@ class AddExpenseViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                val participants = participantDao.getAsyncOrderParticipantsByOrderId(
+                val participants = participantDao.getAsyncParticipantsByOrderId(
                     state.get<Long>("orderId")!!
                 )
                 val expenseParticipantList = mutableListOf<ExpenseParticipant>()

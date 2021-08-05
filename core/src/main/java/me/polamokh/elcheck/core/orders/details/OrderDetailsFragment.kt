@@ -10,6 +10,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import me.polamokh.elcheck.core.databinding.FragmentOrderDetailsBinding
 import me.polamokh.elcheck.core.expenses.ExpensesFragment
 import me.polamokh.elcheck.core.participants.ParticipantsFragment
+import me.polamokh.elcheck.core.valuesadded.ValuesAddedFragment
 
 class OrderDetailsFragment : Fragment() {
 
@@ -28,9 +29,10 @@ class OrderDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val fragments = listOf<Fragment>(
+        val fragments = listOf(
             ParticipantsFragment.newInstance(args.orderId),
-            ExpensesFragment.newInstance(args.orderId)
+            ExpensesFragment.newInstance(args.orderId),
+            ValuesAddedFragment.newInstance(args.orderId)
         )
 
         binding.viewPager.adapter = FragmentAdapter(this, fragments)

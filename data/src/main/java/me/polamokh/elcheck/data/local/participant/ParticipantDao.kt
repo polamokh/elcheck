@@ -18,10 +18,10 @@ interface ParticipantDao {
     suspend fun deleteParticipants(vararg participants: Participant)
 
     @Query("SELECT * FROM participants WHERE order_id = :orderId")
-    fun getOrderParticipantsByOrderId(orderId: Long): LiveData<List<Participant>>
+    fun getParticipantsByOrderId(orderId: Long): LiveData<List<Participant>>
 
     @Query("SELECT * FROM participants WHERE order_id = :orderId")
-    suspend fun getAsyncOrderParticipantsByOrderId(orderId: Long): List<Participant>
+    suspend fun getAsyncParticipantsByOrderId(orderId: Long): List<Participant>
 
     @Query("SELECT * FROM participants WHERE participant_id = :participantId")
     suspend fun getParticipantById(participantId: Long): Participant?
