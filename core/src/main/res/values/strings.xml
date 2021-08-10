@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="add_order">Add Order</string>
-    <string name="expense_name_hint">Name (optional)</string>
-    <string name="expense_value_hint">Amount</string>
-    <string name="share_with">Share with</string>
-    <string name="add_expense">Add</string>
-    <string name="value_added_value_hint">Value</string>
-</resources>

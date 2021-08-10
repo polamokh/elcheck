@@ -7,5 +7,8 @@ import androidx.room.Query
 interface ParticipantExpenseDao {
 
     @Query("SELECT * FROM participant_expense WHERE participant_id = :participantId")
-    suspend fun getAsyncParticipantByIdExpenses(participantId: Long): List<ParticipantExpense>
+    suspend fun getParticipantByIdExpenses(participantId: Long): List<ParticipantExpense>
+
+    @Query("SELECT SUM(value) FROM participant_expense WHERE participant_id = :participantId")
+    suspend fun getParticipantByIdTotalExpenses(participantId: Long): Double?
 }
