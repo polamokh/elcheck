@@ -1,9 +1,11 @@
 package me.polamokh.elcheck.data.local.participant
 
 import androidx.lifecycle.LiveData
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.Query
 import me.polamokh.elcheck.data.local.participantexpense.ParticipantExpense
-import me.polamokh.elcheck.data.local.participantexpense.ParticipantWithExpenses
 
 @Dao
 interface ParticipantDao {
@@ -26,7 +28,7 @@ interface ParticipantDao {
     @Query("SELECT * FROM participants WHERE participant_id = :participantId")
     suspend fun getParticipantById(participantId: Long): Participant?
 
-    @Transaction
+    /*@Transaction
     @Query("SELECT * FROM participants WHERE participant_id = :participantId")
-    suspend fun getParticipantByIdWithExpenses(participantId: Long): ParticipantWithExpenses?
+    suspend fun getParticipantByIdWithExpenses(participantId: Long): ParticipantWithExpenses?*/
 }
