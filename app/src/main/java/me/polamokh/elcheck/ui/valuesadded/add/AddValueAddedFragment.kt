@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import me.polamokh.elcheck.R
 import me.polamokh.elcheck.databinding.FragmentAddValueAddedBinding
@@ -32,13 +33,22 @@ class AddValueAddedFragment : Fragment() {
 
         binding.valueAddedType.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
-                R.id.value_added_percetange -> viewModel.setValueAddedType(true)
-                R.id.value_added_amount -> viewModel.setValueAddedType(false)
+                R.id.value_added_percentage -> {
+                    viewModel.setValueAddedType(true)
+                    binding.valueAddedValue.setStartIconDrawable(R.drawable.ic_percentage)
+                }
+                R.id.value_added_amount -> {
+                    viewModel.setValueAddedType(false)
+                    binding.valueAddedValue.setStartIconDrawable(R.drawable.ic_dollar)
+                }
             }
         }
-        binding.valueAddedType.check(R.id.value_added_percetange)
 
-        binding.valueAddedValue.addTextChangedListener(object : TextWatcher {
+        binding.valueAddedType.check(R.id.value_added_percentage)
+        binding.saveValueAdded.isEnabled =
+            isSaveValueAddedEnabled(binding.valueAddedValue.editText?.text)
+
+        binding.valueAddedValue.editText?.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
 
@@ -46,13 +56,20 @@ class AddValueAddedFragment : Fragment() {
             }
 
             override fun afterTextChanged(s: Editable?) {
-                if (!s.isNullOrEmpty()) viewModel.setValueAddedValue(s.toString().toDouble())
+                if (!s.isNullOrEmpty() && s.toString().toDoubleOrNull() != null)
+                    viewModel.setValueAddedValue(s.toString().toDouble())
                 else viewModel.setValueAddedValue(0.0)
+                binding.saveValueAdded.isEnabled = isSaveValueAddedEnabled(s)
             }
         })
 
         binding.saveValueAdded.setOnClickListener {
             viewModel.saveValueAdded()
+            findNavController().navigateUp()
         }
+    }
+
+    private fun isSaveValueAddedEnabled(valueAddedValue: CharSequence?): Boolean {
+        return !valueAddedValue.isNullOrEmpty()
     }
 }

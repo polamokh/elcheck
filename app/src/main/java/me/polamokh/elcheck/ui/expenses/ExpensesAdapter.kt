@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import me.polamokh.elcheck.data.local.expense.Expense
 import me.polamokh.elcheck.databinding.ItemExpenseBinding
 
-class ExpensesAdapter(private val onLongClickListener: (expense: Expense) -> Boolean) :
+class ExpensesAdapter(private val onDeleteClickListener: (expense: Expense) -> Unit) :
     ListAdapter<Expense, ExpensesAdapter.ExpensesViewHolder>(
         ExpenseDiffCallback
     ) {
@@ -19,15 +19,15 @@ class ExpensesAdapter(private val onLongClickListener: (expense: Expense) -> Boo
 
     override fun onBindViewHolder(holder: ExpensesViewHolder, position: Int) {
         val item = getItem(position)
-        holder.itemView.setOnLongClickListener { onLongClickListener(item) }
-        holder.bind(item)
+        holder.bind(item, onDeleteClickListener)
     }
 
     class ExpensesViewHolder(private val binding: ItemExpenseBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(expense: Expense) {
+        fun bind(expense: Expense, onDeleteClickListener: (expense: Expense) -> Unit) {
             binding.expense = expense
+            binding.deleteExpense.setOnClickListener { onDeleteClickListener(expense) }
             binding.executePendingBindings()
         }
 

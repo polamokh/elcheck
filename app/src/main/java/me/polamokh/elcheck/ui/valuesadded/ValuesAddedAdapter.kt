@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import me.polamokh.elcheck.data.local.valueadded.ValueAdded
 import me.polamokh.elcheck.databinding.ItemValueAddedBinding
 
-class ValuesAddedAdapter(private val onLongClickListener: (valueAdded: ValueAdded) -> Boolean) :
+class ValuesAddedAdapter(private val onDeleteClickListener: (valueAdded: ValueAdded) -> Unit) :
     ListAdapter<ValueAdded, ValuesAddedAdapter.ValuesAddedViewHolder>(
         ValueAddedDiffCallback
     ) {
@@ -19,15 +19,18 @@ class ValuesAddedAdapter(private val onLongClickListener: (valueAdded: ValueAdde
 
     override fun onBindViewHolder(holder: ValuesAddedViewHolder, position: Int) {
         val item = getItem(position)
-        holder.itemView.setOnLongClickListener { onLongClickListener(item) }
-        holder.bind(item)
+        holder.bind(item, onDeleteClickListener)
     }
 
     class ValuesAddedViewHolder(private val binding: ItemValueAddedBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(valueAdded: ValueAdded) {
+        fun bind(
+            valueAdded: ValueAdded,
+            onDeleteClickListener: (valueAdded: ValueAdded) -> Unit
+        ) {
             binding.valueAdded = valueAdded
+            binding.deleteValueAdded.setOnClickListener { onDeleteClickListener(valueAdded) }
             binding.executePendingBindings()
         }
 

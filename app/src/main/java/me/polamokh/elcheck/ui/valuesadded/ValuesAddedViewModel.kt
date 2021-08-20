@@ -1,5 +1,6 @@
 package me.polamokh.elcheck.ui.valuesadded
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -16,6 +17,9 @@ class ValuesAddedViewModel @Inject constructor(
     private val valueAddedDao: ValueAddedDao,
     private val state: SavedStateHandle
 ) : ViewModel() {
+
+    val valuesAdded: LiveData<List<ValueAdded>> =
+        valueAddedDao.getValuesAddedByOrderId(state.get<Long>("orderId")!!)
 
     fun deleteValueAdded(valueAdded: ValueAdded) {
         viewModelScope.launch {

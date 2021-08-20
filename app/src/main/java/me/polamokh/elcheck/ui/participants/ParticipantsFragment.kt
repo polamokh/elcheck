@@ -31,17 +31,15 @@ class ParticipantsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val participantsAdapter = ParticipantsAdapter()
+        val participantsAdapter = ParticipantsAdapter(requireContext()) {
+            viewModel.deleteParticipant(it.participant)
+        }
         binding.participantsRecyclerView.apply {
             adapter = participantsAdapter
         }
 
         viewModel.participantWithTotalExpensesList.observe(viewLifecycleOwner) {
             participantsAdapter.submitList(it)
-        }
-
-        binding.addParticipant.setOnClickListener {
-            viewModel.addParticipant()
         }
     }
 

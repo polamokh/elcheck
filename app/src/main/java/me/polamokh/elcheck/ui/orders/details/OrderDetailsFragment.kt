@@ -6,14 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
+import me.polamokh.elcheck.R
 import me.polamokh.elcheck.databinding.FragmentOrderDetailsBinding
+import me.polamokh.elcheck.ui.AddOrderParticipantDialog
 import me.polamokh.elcheck.ui.SharedViewModel
 import me.polamokh.elcheck.ui.expenses.ExpensesFragment
 import me.polamokh.elcheck.ui.participants.ParticipantsFragment
 import me.polamokh.elcheck.ui.valuesadded.ValuesAddedFragment
+import java.util.*
 
 @AndroidEntryPoint
 class OrderDetailsFragment : Fragment() {
@@ -50,5 +54,34 @@ class OrderDetailsFragment : Fragment() {
                 else -> "Values Added"
             }
         }.attach()
+
+        sharedViewModel.orderTotalExpensesWithVA.observe(viewLifecycleOwner) {
+            binding.orderTotalExpenses.text = getString(
+                R.string.order_total_price_format,
+                Currency.getInstance(Locale.getDefault()).symbol,
+                it ?: 0.0
+            )
+        }
+
+        binding.addParticipant.setOnClickListener {
+            AddOrderParticipantDialog(R.string.add_participant, R.string.name_hint) {
+                sharedViewModel.addParticipant(it)
+            }
+                .show(parentFragmentManager, null)
+        }
+        binding.addExpense.setOnClickListener {
+            findNavController().navigate(
+                OrderDetailsFragmentDirections.actionOrderDetailsFragmentToAddExpenseFragment(
+                    args.orderId
+                )
+            )
+        }
+        binding.addValueAdded.setOnClickListener {
+            findNavController().navigate(
+                OrderDetailsFragmentDirections.actionOrderDetailsFragmentToAddValueAddedFragment(
+                    args.orderId
+                )
+            )
+        }
     }
 }

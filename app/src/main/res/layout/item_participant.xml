@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -9,26 +10,46 @@
             type="me.polamokh.elcheck.model.ParticipantWithTotalExpenses" />
     </data>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp">
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp">
 
         <TextView
+            android:id="@+id/participant_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{participantWithTotalExpenses.participant.name}"
             android:textAppearance="?attr/textAppearanceHeadline6"
             android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@id/participant_total_expenses"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="Name" />
 
         <TextView
-            android:id="@+id/participant_expenses"
+            android:id="@+id/participant_total_expenses"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="20.00" />
+            android:textAppearance="?attr/textAppearanceCaption"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/participant_name"
+            app:layout_constraintTop_toBottomOf="@id/participant_name"
+            tools:text="$50.00" />
 
-    </LinearLayout>
+        <ImageButton
+            android:id="@+id/delete_participant"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_button"
+            android:contentDescription="@string/remove_value_added"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_trash"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@android:color/holo_red_light" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

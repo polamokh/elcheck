@@ -5,20 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import me.polamokh.elcheck.databinding.FragmentExpensesBinding
-import me.polamokh.elcheck.ui.SharedViewModel
-import me.polamokh.elcheck.ui.orders.details.OrderDetailsFragmentDirections
 
 @AndroidEntryPoint
 class ExpensesFragment : Fragment() {
 
     private lateinit var binding: FragmentExpensesBinding
-
-    private val sharedViewModel: SharedViewModel by activityViewModels()
 
     private val viewModel: ExpensesViewModel by viewModels()
 
@@ -35,22 +29,13 @@ class ExpensesFragment : Fragment() {
 
         val expensesAdapter = ExpensesAdapter { expense ->
             viewModel.deleteExpense(expense)
-            true
         }
         binding.expensesRecyclerView.apply {
             adapter = expensesAdapter
         }
 
-        sharedViewModel.expenses.observe(viewLifecycleOwner) {
+        viewModel.expenses.observe(viewLifecycleOwner) {
             expensesAdapter.submitList(it)
-        }
-
-        binding.addExpense.setOnClickListener {
-            findNavController().navigate(
-                OrderDetailsFragmentDirections.actionOrderDetailsFragmentToAddExpenseFragment(
-                    requireArguments().getLong("orderId")
-                )
-            )
         }
     }
 

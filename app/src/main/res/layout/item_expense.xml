@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
+        <import type="android.view.View" />
 
         <variable
             name="expense"
@@ -10,18 +13,44 @@
     </data>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
         android:paddingTop="8dp"
         android:paddingBottom="8dp">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@{String.valueOf(expense.value)}"
-            android:textAppearance="?attr/textAppearanceHeadline6"
-            android:textSize="20sp"
-            tools:text="50.0" />
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                android:textSize="20sp"
+                app:expenseAmount="@{expense.value}"
+                tools:text="$50.0" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?attr/textAppearanceCaption"
+                android:textSize="18sp"
+                app:expenseName="@{expense.name}"
+                tools:text="Pizza" />
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/delete_expense"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_button"
+            android:contentDescription="@string/remove_value_added"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_trash"
+            app:tint="@android:color/holo_red_light" />
     </LinearLayout>
 </layout>

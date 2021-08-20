@@ -3,49 +3,68 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="me.polamokh.elcheck.ui.valuesadded.add.AddValueAddedFragment">
 
-    <LinearLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <RadioGroup
-            android:id="@+id/value_added_type"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp">
 
-            <RadioButton
-                android:id="@+id/value_added_percetange"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Percentage" />
-
-            <RadioButton
-                android:id="@+id/value_added_amount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Amount" />
-
-        </RadioGroup>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/value_added_value_hint">
-
-            <com.google.android.material.textfield.TextInputEditText
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/value_added_value"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number|numberDecimal|numberSigned" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:hint="@string/value_added_value_hint">
 
-        <Button
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number|numberDecimal|numberSigned" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <RadioGroup
+                android:id="@+id/value_added_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/value_added_percentage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_value_added_radio_button"
+                    android:button="@null"
+                    android:padding="8dp"
+                    android:text="Percentage"
+                    android:textAlignment="center"
+                    android:textColor="@drawable/fg_value_added_radio_button_text"
+                    tools:checked="true" />
+
+                <RadioButton
+                    android:id="@+id/value_added_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_value_added_radio_button"
+                    android:button="@null"
+                    android:padding="8dp"
+                    android:text="Amount"
+                    android:textAlignment="center"
+                    android:textColor="@drawable/fg_value_added_radio_button_text" />
+            </RadioGroup>
+        </LinearLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/save_value_added"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Save" />
-    </LinearLayout>
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_baseline_done" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

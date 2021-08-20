@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -10,18 +11,39 @@
     </data>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
         android:paddingTop="8dp"
         android:paddingBottom="8dp">
 
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:contentDescription="@string/value_added_icon"
+            app:valueAddedIcon="@{valueAdded.percentage}"
+            tools:src="@drawable/ic_percentage" />
+
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@{String.valueOf(valueAdded.value) + String.valueOf(valueAdded.percentage)}"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:text="@{String.valueOf(valueAdded.value)}"
             android:textAppearance="?attr/textAppearanceHeadline6"
             android:textSize="20sp"
             tools:text="14.0" />
+
+        <ImageButton
+            android:id="@+id/delete_value_added"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_button"
+            android:contentDescription="@string/remove_value_added"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_trash"
+            app:tint="@android:color/holo_red_light" />
     </LinearLayout>
 </layout>

@@ -5,22 +5,28 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp">
 
         <CheckBox
             android:id="@+id/participant_check"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="8"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:gravity="center_vertical"
+            android:textAppearance="?attr/textAppearanceHeadline1"
+            android:textSize="20sp"
             tools:text="Name" />
 
         <TextView
             android:id="@+id/participant_value"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:gravity="center"
-            tools:text="0.0" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:textAppearance="?attr/textAppearanceCaption"
+            android:textSize="20sp"
+            tools:text="$0.0" />
     </LinearLayout>
 </layout>

@@ -1,14 +1,13 @@
 package me.polamokh.elcheck.ui
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
-import me.polamokh.elcheck.data.local.expense.Expense
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import me.polamokh.elcheck.data.local.expense.ExpenseDao
+import me.polamokh.elcheck.data.local.participant.Participant
 import me.polamokh.elcheck.data.local.participant.ParticipantDao
-import me.polamokh.elcheck.data.local.valueadded.ValueAdded
 import me.polamokh.elcheck.data.local.valueadded.ValueAddedDao
 import javax.inject.Inject
 
@@ -21,15 +20,59 @@ class SharedViewModel @Inject constructor(
 
     private val _orderId = MutableLiveData<Long>()
 
-    val expenses: LiveData<List<Expense>> = Transformations.switchMap(_orderId) { orderId ->
-        expenseDao.getExpensesByOrderId(orderId)
-    }
-
-    val valuesAdded: LiveData<List<ValueAdded>> = Transformations.switchMap(_orderId) { orderId ->
-        valueAddedDao.getValuesAddedByOrderId(orderId)
-    }
+    private val _orderTotalExpensesWithVA = MediatorLiveData<Double>()
+    val orderTotalExpensesWithVA: LiveData<Double>
+        get() = _orderTotalExpensesWithVA
 
     fun setOrderId(orderId: Long) {
         _orderId.value = orderId
+
+        _orderTotalExpensesWithVA.apply {
+            addSource(expenseDao.getExpensesByOrderId(_orderId.value!!)) {
+                calculateTotalOrderExpensesWithVA(_orderId.value!!)
+            }
+            addSource(valueAddedDao.getValuesAddedByOrderId(_orderId.value!!)) {
+                calculateTotalOrderExpensesWithVA(_orderId.value!!)
+            }
+        }
+    }
+
+    private fun calculateTotalOrderExpensesWithVA(orderId: Long) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                var orderTotalExpensesWithVA = getTotalOrderExpenses(orderId)
+                val orderTotalAmountVA = getTotalAmountVA(orderId)
+                val orderTotalPercentageVA = getTotalPercentageVA(orderId)
+
+                orderTotalExpensesWithVA = if (orderTotalExpensesWithVA > 0.0)
+                    orderTotalExpensesWithVA *
+                            (1 + (orderTotalAmountVA / orderTotalExpensesWithVA)
+                                    + (orderTotalPercentageVA / 100.0))
+                else
+                    orderTotalExpensesWithVA *
+                            (1 + (orderTotalPercentageVA / 100.0))
+
+                _orderTotalExpensesWithVA.postValue(orderTotalExpensesWithVA)
+            }
+        }
+    }
+
+    private suspend fun getTotalOrderExpenses(orderId: Long) =
+        expenseDao.getTotalExpensesByOrderId(orderId) ?: 0.0
+
+    private suspend fun getTotalAmountVA(orderId: Long) =
+        valueAddedDao.getTotalAmountValuesAddedByOrderId(orderId) ?: 0.0
+
+    private suspend fun getTotalPercentageVA(orderId: Long) =
+        valueAddedDao.getTotalPercentageValuesAddedByOrderId(orderId) ?: 0.0
+
+    fun addParticipant(name: String) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                participantDao.insertParticipants(
+                    Participant(name = name, orderId = _orderId.value!!)
+                )
+            }
+        }
     }
 }

@@ -65,7 +65,7 @@ class AddExpenseViewModel @Inject constructor(
         recalculateParticipantExpenses()
     }
 
-    fun recalculateParticipantExpenses() {
+    private fun recalculateParticipantExpenses() {
         val currentList = expenseParticipants.value!!
         val checkedParticipants = currentList.filter { it.isChecked }
         if (checkedParticipants.isNotEmpty()) {
@@ -81,7 +81,7 @@ class AddExpenseViewModel @Inject constructor(
         _onNotifyItemChanged.value = -1
     }
 
-    fun saveExpense() {
+    fun saveExpense(name: String) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 val currentList = expenseParticipants.value!!
@@ -89,7 +89,7 @@ class AddExpenseViewModel @Inject constructor(
                 if (checkedParticipants.isNotEmpty()) {
                     val expenseIds = expenseDao.insertExpenses(
                         Expense(
-                            name = "",
+                            name = name,
                             value = _expenseAmount.value!!,
                             orderId = state.get<Long>("orderId")!!
                         )

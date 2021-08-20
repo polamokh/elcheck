@@ -1,5 +1,6 @@
 package me.polamokh.elcheck.ui.expenses
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -12,8 +13,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ExpensesViewModel @Inject constructor(
-    private val expenseDao: ExpenseDao
+    private val expenseDao: ExpenseDao,
+    private val state: SavedStateHandle
 ) : ViewModel() {
+
+    val expenses = expenseDao.getExpensesByOrderId(state.get<Long>("orderId")!!)
 
     fun deleteExpense(expense: Expense) {
         viewModelScope.launch {

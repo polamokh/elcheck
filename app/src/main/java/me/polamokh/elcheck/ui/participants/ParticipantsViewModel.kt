@@ -1,7 +1,9 @@
 package me.polamokh.elcheck.ui.participants
 
+import android.util.Log
 import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -87,13 +89,17 @@ class ParticipantsViewModel @Inject constructor(
     private suspend fun getTotalParticipantExpensesWithoutVA(participantId: Long) =
         participantExpenseDao.getParticipantByIdTotalExpenses(participantId) ?: 0.0
 
-    fun addParticipant() {
-        viewModelScope.launch {
+    fun deleteParticipant(participant: Participant) {
+        viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
+            Log.e(TAG, "deleteParticipant: ${throwable.message}")
+        }) {
             withContext(Dispatchers.IO) {
-                participantDao.insertParticipants(
-                    Participant(name = "Name", orderId = state.get<Long>("orderId")!!)
-                )
+                participantDao.deleteParticipants(participant)
             }
         }
+    }
+
+    companion object {
+        private const val TAG = "ParticipantsViewModel"
     }
 }

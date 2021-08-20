@@ -7,4 +7,12 @@
     <string name="add_expense">Add</string>
     <string name="value_added_value_hint">Value</string>
     <string name="title_hint">Title</string>
+    <string name="remove_value_added">Remove Value Added</string>
+    <string name="value_added_icon">Value Added Icon</string>
+    <string name="expense_icon">Expense Icon</string>
+    <string name="add_participant">Add Participant</string>
+    <string name="name_hint">Name</string>
+
+    <string name="price_format">%1$s%2$.2f</string>
+    <string name="order_total_price_format">Total: %1$s%2$.2f</string>
 </resources>

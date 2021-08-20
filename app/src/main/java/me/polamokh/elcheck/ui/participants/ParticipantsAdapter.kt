@@ -1,14 +1,20 @@
 package me.polamokh.elcheck.ui.participants
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import me.polamokh.elcheck.R
 import me.polamokh.elcheck.databinding.ItemParticipantBinding
 import me.polamokh.elcheck.model.ParticipantWithTotalExpenses
+import java.util.*
 
-class ParticipantsAdapter :
+class ParticipantsAdapter(
+    private val context: Context,
+    private val onDeleteClickListener: (participantWithTotalExpenses: ParticipantWithTotalExpenses) -> Unit
+) :
     ListAdapter<ParticipantWithTotalExpenses, ParticipantsAdapter.ParticipantsViewHolder>(
         ParticipantDiffCallback
     ) {
@@ -19,16 +25,29 @@ class ParticipantsAdapter :
 
     override fun onBindViewHolder(holder: ParticipantsViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(item)
+        holder.bind(item, context, onDeleteClickListener)
     }
 
     class ParticipantsViewHolder(private val binding: ItemParticipantBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(participantWithTotalExpenses: ParticipantWithTotalExpenses) {
+        fun bind(
+            participantWithTotalExpenses: ParticipantWithTotalExpenses,
+            context: Context,
+            onDeleteClickListener: (participantWithTotalExpenses: ParticipantWithTotalExpenses) -> Unit
+        ) {
             binding.participantWithTotalExpenses = participantWithTotalExpenses
-            binding.participantExpenses.text =
-                "%.2f".format(participantWithTotalExpenses.totalExpenses)
+            binding.participantTotalExpenses.text =
+                context.getString(
+                    R.string.price_format,
+                    Currency.getInstance(Locale.getDefault()).symbol,
+                    participantWithTotalExpenses.totalExpenses
+                )
+            binding.deleteParticipant.setOnClickListener {
+                onDeleteClickListener(
+                    participantWithTotalExpenses
+                )
+            }
             binding.executePendingBindings()
         }
 
