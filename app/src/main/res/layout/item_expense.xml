@@ -27,18 +27,16 @@
             android:orientation="vertical">
 
             <TextView
+                style="@style/Theme.Elcheck.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?attr/textAppearanceHeadline6"
-                android:textSize="20sp"
                 app:expenseAmount="@{expense.value}"
                 tools:text="$50.0" />
 
             <TextView
+                style="@style/Theme.Elcheck.Title.Subtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?attr/textAppearanceCaption"
-                android:textSize="18sp"
                 app:expenseName="@{expense.name}"
                 tools:text="Pizza" />
         </LinearLayout>

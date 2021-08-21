@@ -45,6 +45,11 @@ class AddValueAddedFragment : Fragment() {
         }
 
         binding.valueAddedType.check(R.id.value_added_percentage)
+
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
+
         binding.saveValueAdded.isEnabled =
             isSaveValueAddedEnabled(binding.valueAddedValue.editText?.text)
 

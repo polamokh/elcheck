@@ -23,7 +23,7 @@ fun TextView.bindExpenseName(name: String?) {
 @BindingAdapter("expenseAmount")
 fun TextView.bindExpenseAmount(amount: Double?) {
     text = resources.getString(
-        R.string.price_format,
+        R.string.format_price,
         Currency.getInstance(Locale.getDefault()).symbol,
         amount ?: 0.0
     )

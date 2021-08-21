@@ -39,7 +39,7 @@ class ParticipantsAdapter(
             binding.participantWithTotalExpenses = participantWithTotalExpenses
             binding.participantTotalExpenses.text =
                 context.getString(
-                    R.string.price_format,
+                    R.string.format_price,
                     Currency.getInstance(Locale.getDefault()).symbol,
                     participantWithTotalExpenses.totalExpenses
                 )

@@ -36,7 +36,7 @@ class OrdersFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val ordersAdapter = OrdersAdapter({
-            sharedViewModel.setOrderId(it.orderId)
+            sharedViewModel.setOrder(it)
             findNavController().navigate(
                 OrdersFragmentDirections.actionOrdersFragmentToOrderDetailsFragment(
                     it.orderId
@@ -55,7 +55,7 @@ class OrdersFragment : Fragment() {
         }
 
         binding.addOrder.setOnClickListener {
-            AddOrderParticipantDialog(R.string.add_order, R.string.title_hint) {
+            AddOrderParticipantDialog(R.string.add_order, R.string.hint_title) {
                 viewModel.addOrder(it)
             }
                 .show(parentFragmentManager, null)

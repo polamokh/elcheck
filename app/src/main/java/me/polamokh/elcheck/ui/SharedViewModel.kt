@@ -6,6 +6,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import me.polamokh.elcheck.data.local.expense.ExpenseDao
+import me.polamokh.elcheck.data.local.order.Order
 import me.polamokh.elcheck.data.local.participant.Participant
 import me.polamokh.elcheck.data.local.participant.ParticipantDao
 import me.polamokh.elcheck.data.local.valueadded.ValueAddedDao
@@ -20,12 +21,17 @@ class SharedViewModel @Inject constructor(
 
     private val _orderId = MutableLiveData<Long>()
 
+    private val _orderName = MutableLiveData<String>()
+    val orderName: LiveData<String>
+        get() = _orderName
+
     private val _orderTotalExpensesWithVA = MediatorLiveData<Double>()
     val orderTotalExpensesWithVA: LiveData<Double>
         get() = _orderTotalExpensesWithVA
 
-    fun setOrderId(orderId: Long) {
-        _orderId.value = orderId
+    fun setOrder(order: Order) {
+        _orderId.value = order.orderId
+        _orderName.value = order.name
 
         _orderTotalExpensesWithVA.apply {
             addSource(expenseDao.getExpensesByOrderId(_orderId.value!!)) {

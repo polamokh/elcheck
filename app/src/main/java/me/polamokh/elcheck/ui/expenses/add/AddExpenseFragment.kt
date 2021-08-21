@@ -42,6 +42,10 @@ class AddExpenseFragment : Fragment() {
             adapter.submitList(it)
         }
 
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
+
         binding.saveExpense.isEnabled = isSaveExpenseEnabled(null, null)
 
         viewModel.onNotifyItemChanged.observe(viewLifecycleOwner) { position ->

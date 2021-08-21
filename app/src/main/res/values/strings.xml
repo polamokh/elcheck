@@ -1,18 +1,22 @@
 <resources>
     <string name="app_name">Elcheck</string>
     <string name="add_order">Add Order</string>
-    <string name="expense_name_hint">Name (optional)</string>
-    <string name="expense_value_hint">Amount</string>
+    <string name="hint_expense_name">Name (optional)</string>
+    <string name="hint_expense_value">Amount</string>
     <string name="share_with">Share with</string>
-    <string name="add_expense">Add</string>
-    <string name="value_added_value_hint">Value</string>
-    <string name="title_hint">Title</string>
+    <string name="add_expense">Add Expense</string>
+    <string name="hint_value_added_value">Value</string>
+    <string name="hint_title">Title</string>
     <string name="remove_value_added">Remove Value Added</string>
-    <string name="value_added_icon">Value Added Icon</string>
-    <string name="expense_icon">Expense Icon</string>
+    <string name="icon_value_added">Value Added Icon</string>
+    <string name="icon_expense">Expense Icon</string>
     <string name="add_participant">Add Participant</string>
-    <string name="name_hint">Name</string>
-
-    <string name="price_format">%1$s%2$.2f</string>
-    <string name="order_total_price_format">Total: %1$s%2$.2f</string>
+    <string name="hint_name">Name</string>
+    <string name="format_price">%1$s%2$.2f</string>
+    <string name="format_order_total_price">Total: %1$s%2$.2f</string>
+    <string name="add_value_added">Add Value Added</string>
+    <string name="percentage">Percentage</string>
+    <string name="amount">Amount</string>
+    <string name="title_orders">Orders</string>
+    <string name="title_order_details">Order Details</string>
 </resources>

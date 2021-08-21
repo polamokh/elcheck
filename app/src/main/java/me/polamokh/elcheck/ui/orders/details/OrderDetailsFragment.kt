@@ -55,16 +55,24 @@ class OrderDetailsFragment : Fragment() {
             }
         }.attach()
 
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
+
+        sharedViewModel.orderName.observe(viewLifecycleOwner) {
+            binding.toolbar.title = it
+        }
+
         sharedViewModel.orderTotalExpensesWithVA.observe(viewLifecycleOwner) {
             binding.orderTotalExpenses.text = getString(
-                R.string.order_total_price_format,
+                R.string.format_order_total_price,
                 Currency.getInstance(Locale.getDefault()).symbol,
                 it ?: 0.0
             )
         }
 
         binding.addParticipant.setOnClickListener {
-            AddOrderParticipantDialog(R.string.add_participant, R.string.name_hint) {
+            AddOrderParticipantDialog(R.string.add_participant, R.string.hint_name) {
                 sharedViewModel.addParticipant(it)
             }
                 .show(parentFragmentManager, null)
