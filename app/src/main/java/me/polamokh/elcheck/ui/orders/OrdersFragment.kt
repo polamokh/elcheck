@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -44,7 +45,6 @@ class OrdersFragment : Fragment() {
             )
         }, {
             viewModel.removeOrder(it)
-            true
         })
         binding.ordersRecyclerView.apply {
             this.adapter = ordersAdapter
@@ -52,6 +52,14 @@ class OrdersFragment : Fragment() {
 
         viewModel.orders.observe(viewLifecycleOwner) {
             ordersAdapter.submitList(it)
+            binding.emptyLayout.emptyMsg.isVisible = it.isEmpty()
+            if (it.isEmpty()) {
+                binding.emptyLayout.emptyMsg.text = getString(
+                    R.string.format_empty_list,
+                    getString(R.string.title_orders).lowercase(),
+                    getString(R.string.order).lowercase()
+                )
+            }
         }
 
         binding.addOrder.setOnClickListener {

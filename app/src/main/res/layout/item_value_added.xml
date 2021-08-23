@@ -23,7 +23,7 @@
             android:layout_height="32dp"
             android:contentDescription="@string/icon_value_added"
             app:valueAddedIcon="@{valueAdded.percentage}"
-            tools:src="@drawable/ic_percentage" />
+            tools:src="@drawable/ic_percentage_value_added" />
 
         <TextView
             style="@style/Theme.Elcheck.Title"

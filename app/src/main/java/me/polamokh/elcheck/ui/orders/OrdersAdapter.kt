@@ -10,7 +10,7 @@ import me.polamokh.elcheck.databinding.ItemOrderBinding
 
 class OrdersAdapter(
     private val onClickListener: (order: Order) -> Unit,
-    private val onLongClickListener: (order: Order) -> Boolean
+    private val onDeleteClickListener: (order: Order) -> Unit
 ) :
     ListAdapter<Order, OrdersAdapter.OrdersViewHolder>(OrderDiffCallback) {
 
@@ -20,9 +20,7 @@ class OrdersAdapter(
 
     override fun onBindViewHolder(holder: OrdersViewHolder, position: Int) {
         val item = getItem(position)
-        holder.itemView.setOnClickListener { onClickListener(item) }
-        holder.itemView.setOnLongClickListener { onLongClickListener(item) }
-        holder.bind(item)
+        holder.bind(item, onClickListener, onDeleteClickListener)
     }
 
     class OrdersViewHolder(
@@ -30,8 +28,14 @@ class OrdersAdapter(
     ) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(order: Order) {
+        fun bind(
+            order: Order,
+            onClickListener: (order: Order) -> Unit,
+            onDeleteClickListener: (order: Order) -> Unit
+        ) {
             binding.order = order
+            binding.root.setOnClickListener { onClickListener(order) }
+            binding.deleteOrder.setOnClickListener { onDeleteClickListener(order) }
             binding.executePendingBindings()
         }
 

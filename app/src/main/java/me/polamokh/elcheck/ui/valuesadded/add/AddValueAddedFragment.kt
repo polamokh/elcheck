@@ -35,11 +35,11 @@ class AddValueAddedFragment : Fragment() {
             when (checkedId) {
                 R.id.value_added_percentage -> {
                     viewModel.setValueAddedType(true)
-                    binding.valueAddedValue.setStartIconDrawable(R.drawable.ic_percentage)
+                    binding.valueAddedValue.setStartIconDrawable(R.drawable.ic_percentage_value_added)
                 }
                 R.id.value_added_amount -> {
                     viewModel.setValueAddedType(false)
-                    binding.valueAddedValue.setStartIconDrawable(R.drawable.ic_dollar)
+                    binding.valueAddedValue.setStartIconDrawable(R.drawable.ic_amount_value_added)
                 }
             }
         }

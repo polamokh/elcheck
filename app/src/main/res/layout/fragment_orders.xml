@@ -43,5 +43,9 @@
             android:contentDescription="@string/add_order"
             android:src="@drawable/ic_baseline_add"
             app:tint="@color/white" />
+
+        <include
+            android:id="@+id/empty_layout"
+            layout="@layout/layout_empty_shared" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

@@ -28,6 +28,12 @@
             android:padding="16dp"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:text="@string/msg_add_expense" />
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/expense_amount"
                 android:layout_width="match_parent"

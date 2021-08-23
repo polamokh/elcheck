@@ -67,21 +67,21 @@
                 android:id="@+id/add_participant"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:fab_icon="@drawable/ic_baseline_person"
+                app:fab_icon="@drawable/ic_add_person"
                 app:label_text="Participant" />
 
             <com.nambimobile.widgets.efab.FabOption
                 android:id="@+id/add_expense"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:fab_icon="@drawable/ic_expense"
+                app:fab_icon="@drawable/ic_add_expense"
                 app:label_text="Expense" />
 
             <com.nambimobile.widgets.efab.FabOption
                 android:id="@+id/add_value_added"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:fab_icon="@drawable/ic_value_added"
+                app:fab_icon="@drawable/ic_add_value_added"
                 app:label_text="Value Added" />
         </com.nambimobile.widgets.efab.ExpandableFabLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

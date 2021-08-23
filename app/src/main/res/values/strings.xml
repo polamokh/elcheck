@@ -5,6 +5,7 @@
     <string name="hint_expense_value">Amount</string>
     <string name="share_with">Share with</string>
     <string name="add_expense">Add Expense</string>
+    <string name="order">Order</string>
     <string name="hint_value_added_value">Value</string>
     <string name="hint_title">Title</string>
     <string name="remove_value_added">Remove Value Added</string>
@@ -17,6 +18,17 @@
     <string name="add_value_added">Add Value Added</string>
     <string name="percentage">Percentage</string>
     <string name="amount">Amount</string>
+    <string name="orders">Orders</string>
+    <string name="participants">Participants</string>
+    <string name="participant">Participant</string>
+    <string name="values_added">Values added</string>
+    <string name="value_added">Value added</string>
+    <string name="expenses">Expenses</string>
+    <string name="expense">Expense</string>
     <string name="title_orders">Orders</string>
     <string name="title_order_details">Order Details</string>
+    <string name="msg_add_expense">Please add your expenses without the value added.</string>
+    <string name="format_empty_list">Not available %1$s yet.\nPlease press + button to add new %2$s.</string>
+    <string name="format_empty_list_with_msg">Not available %1$s yet.\nPlease press + button to add new %2$s.\n\nPlease add %3$s before adding %4$s.</string>
+    <string name="delete">Delete</string>
 </resources>

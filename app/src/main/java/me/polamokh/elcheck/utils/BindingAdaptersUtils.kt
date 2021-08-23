@@ -10,7 +10,7 @@ import java.util.*
 @BindingAdapter("valueAddedIcon")
 fun ImageView.bindValuedAddedIcon(isPercentage: Boolean?) {
     isPercentage?.let {
-        setImageResource(if (isPercentage) R.drawable.ic_percentage else R.drawable.ic_dollar)
+        setImageResource(if (isPercentage) R.drawable.ic_percentage_value_added else R.drawable.ic_amount_value_added)
     }
 }
 

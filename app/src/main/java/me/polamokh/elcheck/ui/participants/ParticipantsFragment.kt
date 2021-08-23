@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
+import me.polamokh.elcheck.R
 import me.polamokh.elcheck.databinding.FragmentParticipantsBinding
 import me.polamokh.elcheck.ui.SharedViewModel
 
@@ -40,6 +42,14 @@ class ParticipantsFragment : Fragment() {
 
         viewModel.participantWithTotalExpensesList.observe(viewLifecycleOwner) {
             participantsAdapter.submitList(it)
+            binding.emptyLayout.emptyMsg.isVisible = it.isEmpty()
+            if (it.isEmpty()) {
+                binding.emptyLayout.emptyMsg.text = getString(
+                    R.string.format_empty_list,
+                    getString(R.string.participants).lowercase(),
+                    getString(R.string.participant).lowercase()
+                )
+            }
         }
     }
 
