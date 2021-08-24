@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import me.polamokh.elcheck.R
 import me.polamokh.elcheck.databinding.FragmentAddValueAddedBinding
+import me.polamokh.elcheck.utils.showSoftKeyboard
 
 @AndroidEntryPoint
 class AddValueAddedFragment : Fragment() {
@@ -53,7 +54,7 @@ class AddValueAddedFragment : Fragment() {
         binding.saveValueAdded.isEnabled =
             isSaveValueAddedEnabled(binding.valueAddedValue.editText?.text)
 
-        binding.valueAddedValue.editText?.addTextChangedListener(object : TextWatcher {
+        binding.valueAddedValueText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
 
@@ -67,6 +68,8 @@ class AddValueAddedFragment : Fragment() {
                 binding.saveValueAdded.isEnabled = isSaveValueAddedEnabled(s)
             }
         })
+
+        binding.valueAddedValueText.showSoftKeyboard()
 
         binding.saveValueAdded.setOnClickListener {
             viewModel.saveValueAdded()

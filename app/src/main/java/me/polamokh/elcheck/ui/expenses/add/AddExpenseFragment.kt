@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import me.polamokh.elcheck.databinding.FragmentAddExpenseBinding
 import me.polamokh.elcheck.model.ExpenseParticipant
+import me.polamokh.elcheck.utils.showSoftKeyboard
 
 @AndroidEntryPoint
 class AddExpenseFragment : Fragment() {
@@ -33,40 +34,30 @@ class AddExpenseFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupUI()
+    }
+
+    private fun setupUI() {
         adapter = ExpenseParticipantsAdapter { isChecked, expenseParticipant ->
             viewModel.recalculateParticipantExpenses(isChecked, expenseParticipant)
         }
-        binding.expenseParticipantsRecyclerView.adapter = adapter
 
-        viewModel.expenseParticipants.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
-        }
+        binding.expenseAmountText.showSoftKeyboard()
 
         binding.toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
 
+        binding.expenseParticipantsRecyclerView.adapter = adapter
+
         binding.saveExpense.isEnabled = isSaveExpenseEnabled(null, null)
 
-        viewModel.onNotifyItemChanged.observe(viewLifecycleOwner) { position ->
-            if (position != -1) {
-                adapter.notifyItemChanged(position)
-                viewModel.onNotifyItemChangedComplete()
-            }
-
-            binding.saveExpense.isEnabled =
-                isSaveExpenseEnabled(
-                    viewModel.expenseParticipants.value,
-                    binding.expenseAmount.editText?.text
-                )
-        }
-
         binding.saveExpense.setOnClickListener {
-            viewModel.saveExpense(binding.expenseName.editText?.text.toString())
+            viewModel.saveExpense(binding.expenseNameText.text.toString())
             findNavController().navigateUp()
         }
 
-        binding.expenseAmount.editText?.addTextChangedListener(object : TextWatcher {
+        binding.expenseAmountText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
 
@@ -81,6 +72,23 @@ class AddExpenseFragment : Fragment() {
                     isSaveExpenseEnabled(viewModel.expenseParticipants.value, s)
             }
         })
+
+        viewModel.expenseParticipants.observe(viewLifecycleOwner) {
+            adapter.submitList(it)
+        }
+
+        viewModel.onNotifyItemChanged.observe(viewLifecycleOwner) { position ->
+            if (position != -1) {
+                adapter.notifyItemChanged(position)
+                viewModel.onNotifyItemChangedComplete()
+            }
+
+            binding.saveExpense.isEnabled =
+                isSaveExpenseEnabled(
+                    viewModel.expenseParticipants.value,
+                    binding.expenseAmountText.text
+                )
+        }
     }
 
     private fun isSaveExpenseEnabled(

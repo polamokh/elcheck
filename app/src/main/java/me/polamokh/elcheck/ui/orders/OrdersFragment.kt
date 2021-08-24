@@ -63,8 +63,8 @@ class OrdersFragment : Fragment() {
         }
 
         binding.addOrder.setOnClickListener {
-            AddOrderParticipantDialog(R.string.add_order, R.string.hint_title) {
-                viewModel.addOrder(it)
+            AddOrderParticipantDialog(R.string.add_order, R.string.hint_title) { title ->
+                viewModel.addOrder(title)
             }
                 .show(parentFragmentManager, null)
         }

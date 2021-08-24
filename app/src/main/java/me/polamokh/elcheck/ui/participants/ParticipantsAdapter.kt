@@ -3,6 +3,7 @@ package me.polamokh.elcheck.ui.participants
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -43,6 +44,7 @@ class ParticipantsAdapter(
                     Currency.getInstance(Locale.getDefault()).symbol,
                     participantWithTotalExpenses.totalExpenses
                 )
+            binding.deleteParticipant.isVisible = participantWithTotalExpenses.totalExpenses == 0.0
             binding.deleteParticipant.setOnClickListener {
                 onDeleteClickListener(
                     participantWithTotalExpenses

@@ -6,7 +6,8 @@
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
@@ -35,6 +36,7 @@
                 android:hint="@string/hint_value_added_value">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/value_added_value_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number|numberDecimal|numberSigned" />
@@ -49,7 +51,7 @@
 
                 <RadioButton
                     android:id="@+id/value_added_percentage"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/bg_value_added_radio_button"
@@ -62,7 +64,7 @@
 
                 <RadioButton
                     android:id="@+id/value_added_amount"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/bg_value_added_radio_button"

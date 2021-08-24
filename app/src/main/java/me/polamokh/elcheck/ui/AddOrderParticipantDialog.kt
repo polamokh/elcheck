@@ -9,6 +9,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.textfield.TextInputLayout
 import me.polamokh.elcheck.R
+import me.polamokh.elcheck.utils.showSoftKeyboard
 
 class AddOrderParticipantDialog(
     private val title: Int,
@@ -52,6 +53,10 @@ class AddOrderParticipantDialog(
         super.onResume()
 
         invalidatePositiveButton(null)
+
+        inputText.editText?.post {
+            inputText.editText?.showSoftKeyboard()
+        }
     }
 
     private fun invalidatePositiveButton(text: Editable?) {
