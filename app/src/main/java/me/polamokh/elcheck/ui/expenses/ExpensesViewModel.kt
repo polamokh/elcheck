@@ -14,7 +14,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ExpensesViewModel @Inject constructor(
     private val expenseDao: ExpenseDao,
-    private val state: SavedStateHandle
+    state: SavedStateHandle
 ) : ViewModel() {
 
     val expenses = expenseDao.getExpensesByOrderId(state.get<Long>("orderId")!!)

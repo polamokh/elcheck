@@ -6,18 +6,16 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import me.polamokh.elcheck.R
 import me.polamokh.elcheck.databinding.FragmentAddValueAddedBinding
+import me.polamokh.elcheck.ui.BaseFragment
 import me.polamokh.elcheck.utils.showSoftKeyboard
 
 @AndroidEntryPoint
-class AddValueAddedFragment : Fragment() {
-
-    private lateinit var binding: FragmentAddValueAddedBinding
+class AddValueAddedFragment : BaseFragment<FragmentAddValueAddedBinding>() {
 
     private val viewModel: AddValueAddedViewModel by viewModels()
 
@@ -29,9 +27,7 @@ class AddValueAddedFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    override fun setupUI() {
         binding.valueAddedType.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 R.id.value_added_percentage -> {
@@ -45,14 +41,13 @@ class AddValueAddedFragment : Fragment() {
             }
         }
 
-        binding.valueAddedType.check(R.id.value_added_percentage)
+        binding.saveValueAdded.setOnClickListener {
+            onSaveValueAddedClick()
+        }
 
         binding.toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
-
-        binding.saveValueAdded.isEnabled =
-            isSaveValueAddedEnabled(binding.valueAddedValue.editText?.text)
 
         binding.valueAddedValueText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -69,12 +64,17 @@ class AddValueAddedFragment : Fragment() {
             }
         })
 
+        binding.valueAddedType.check(R.id.value_added_percentage)
+
         binding.valueAddedValueText.showSoftKeyboard()
 
-        binding.saveValueAdded.setOnClickListener {
-            viewModel.saveValueAdded()
-            findNavController().navigateUp()
-        }
+        binding.saveValueAdded.isEnabled =
+            isSaveValueAddedEnabled(binding.valueAddedValue.editText?.text)
+    }
+
+    private fun onSaveValueAddedClick() {
+        viewModel.saveValueAdded()
+        findNavController().navigateUp()
     }
 
     private fun isSaveValueAddedEnabled(valueAddedValue: CharSequence?): Boolean {

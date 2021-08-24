@@ -5,16 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import me.polamokh.elcheck.R
 import me.polamokh.elcheck.databinding.FragmentValuesAddedBinding
+import me.polamokh.elcheck.ui.BaseFragment
 
 @AndroidEntryPoint
-class ValuesAddedFragment : Fragment() {
-
-    private lateinit var binding: FragmentValuesAddedBinding
+class ValuesAddedFragment : BaseFragment<FragmentValuesAddedBinding>() {
 
     private val viewModel: ValuesAddedViewModel by viewModels()
 
@@ -26,11 +24,13 @@ class ValuesAddedFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    override fun setupUI() {
         val valuesAddedAdapter = ValuesAddedAdapter { viewModel.deleteValueAdded(it) }
-        binding.valuesAddedRecyclerView.adapter = valuesAddedAdapter
+
+        binding.valuesAddedRecyclerView.apply {
+            setHasFixedSize(true)
+            adapter = valuesAddedAdapter
+        }
 
         viewModel.valuesAdded.observe(viewLifecycleOwner) {
             valuesAddedAdapter.submitList(it)

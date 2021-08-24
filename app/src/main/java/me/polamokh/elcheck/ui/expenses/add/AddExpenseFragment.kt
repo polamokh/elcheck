@@ -6,22 +6,20 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import me.polamokh.elcheck.databinding.FragmentAddExpenseBinding
 import me.polamokh.elcheck.model.ExpenseParticipant
+import me.polamokh.elcheck.ui.BaseFragment
 import me.polamokh.elcheck.utils.showSoftKeyboard
 
 @AndroidEntryPoint
-class AddExpenseFragment : Fragment() {
-
-    private lateinit var binding: FragmentAddExpenseBinding
+class AddExpenseFragment : BaseFragment<FragmentAddExpenseBinding>() {
 
     private val viewModel: AddExpenseViewModel by viewModels()
 
-    private lateinit var adapter: ExpenseParticipantsAdapter
+    private lateinit var participantsAdapter: ExpenseParticipantsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,16 +29,11 @@ class AddExpenseFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        setupUI()
-    }
-
-    private fun setupUI() {
-        adapter = ExpenseParticipantsAdapter { isChecked, expenseParticipant ->
-            viewModel.recalculateParticipantExpenses(isChecked, expenseParticipant)
-        }
+    override fun setupUI() {
+        participantsAdapter =
+            ExpenseParticipantsAdapter(requireContext()) { isChecked, expenseParticipant ->
+                viewModel.recalculateParticipantExpenses(isChecked, expenseParticipant)
+            }
 
         binding.expenseAmountText.showSoftKeyboard()
 
@@ -48,13 +41,15 @@ class AddExpenseFragment : Fragment() {
             findNavController().navigateUp()
         }
 
-        binding.expenseParticipantsRecyclerView.adapter = adapter
+        binding.expenseParticipantsRecyclerView.apply {
+            setHasFixedSize(true)
+            this.adapter = participantsAdapter
+        }
 
         binding.saveExpense.isEnabled = isSaveExpenseEnabled(null, null)
 
         binding.saveExpense.setOnClickListener {
-            viewModel.saveExpense(binding.expenseNameText.text.toString())
-            findNavController().navigateUp()
+            onSaveExpenseClick()
         }
 
         binding.expenseAmountText.addTextChangedListener(object : TextWatcher {
@@ -73,13 +68,17 @@ class AddExpenseFragment : Fragment() {
             }
         })
 
+        binding.shareWith.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.recalculateParticipantExpenses(isChecked)
+        }
+
         viewModel.expenseParticipants.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
+            participantsAdapter.submitList(it)
         }
 
         viewModel.onNotifyItemChanged.observe(viewLifecycleOwner) { position ->
             if (position != -1) {
-                adapter.notifyItemChanged(position)
+                participantsAdapter.notifyItemChanged(position)
                 viewModel.onNotifyItemChangedComplete()
             }
 
@@ -89,6 +88,11 @@ class AddExpenseFragment : Fragment() {
                     binding.expenseAmountText.text
                 )
         }
+    }
+
+    private fun onSaveExpenseClick() {
+        viewModel.saveExpense(binding.expenseNameText.text.toString())
+        findNavController().navigateUp()
     }
 
     private fun isSaveExpenseEnabled(

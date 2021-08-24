@@ -38,10 +38,10 @@ class AddOrderParticipantDialog(
             builder
                 .setTitle(title)
                 .setView(view)
-                .setPositiveButton("Save") { _, _ ->
+                .setPositiveButton(R.string.save) { _, _ ->
                     onPositiveButtonClickListener(inputText.editText?.text.toString())
                 }
-                .setNeutralButton("Cancel") { dialog, _ ->
+                .setNeutralButton(R.string.cancel) { dialog, _ ->
                     dialog.cancel()
                 }
                 .create()

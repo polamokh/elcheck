@@ -35,9 +35,8 @@ class AddExpenseViewModel @Inject constructor(
                 val participants = participantDao.getAsyncParticipantsByOrderId(
                     state.get<Long>("orderId")!!
                 )
-                val expenseParticipantList = mutableListOf<ExpenseParticipant>()
-                for (participant in participants) {
-                    expenseParticipantList.add(ExpenseParticipant(participant))
+                val expenseParticipantList = participants.map { participant ->
+                    ExpenseParticipant(participant)
                 }
                 _expenseParticipants.postValue(expenseParticipantList)
             }
@@ -46,35 +45,49 @@ class AddExpenseViewModel @Inject constructor(
 
     fun setExpenseAmount(value: Double) {
         _expenseAmount.value = value
-        recalculateParticipantExpenses()
+        recalculateParticipantExpenses(expenseParticipants.value!!)
     }
 
     fun recalculateParticipantExpenses(
         isChecked: Boolean,
-        expenseParticipant: ExpenseParticipant
+        expenseParticipant: ExpenseParticipant? = null
     ) {
         val currentList = expenseParticipants.value!!
-        val expenseParticipantIndex = currentList.indexOf(expenseParticipant)
-        currentList[expenseParticipantIndex].isChecked = isChecked
-        if (!isChecked) {
-            currentList[expenseParticipantIndex].value = 0.0
-        }
-        if (!isChecked)
-            _onNotifyItemChanged.value = currentList.indexOf(expenseParticipant)
-
-        recalculateParticipantExpenses()
-    }
-
-    private fun recalculateParticipantExpenses() {
-        val currentList = expenseParticipants.value!!
-        val checkedParticipants = currentList.filter { it.isChecked }
-        if (checkedParticipants.isNotEmpty()) {
-            for (participant in checkedParticipants) {
-                participant.value = _expenseAmount.value!! / checkedParticipants.size
+        if (expenseParticipant != null) {
+            val expenseParticipantIndex = currentList.indexOf(expenseParticipant)
+            isParticipantChecked(currentList, expenseParticipantIndex, isChecked)
+        } else {
+            currentList.forEachIndexed { i, _ ->
+                isParticipantChecked(currentList, i, isChecked)
             }
         }
-        for (participant in checkedParticipants)
-            _onNotifyItemChanged.value = currentList.indexOf(participant)
+        recalculateParticipantExpenses(currentList)
+    }
+
+    private fun isParticipantChecked(
+        currentList: List<ExpenseParticipant>,
+        i: Int,
+        isChecked: Boolean
+    ) {
+        currentList[i].isChecked = isChecked
+        if (!isChecked)
+            notifyUncheckedParticipant(currentList, i)
+    }
+
+    private fun notifyUncheckedParticipant(currentList: List<ExpenseParticipant>, i: Int) {
+        currentList[i].value = 0.0
+        _onNotifyItemChanged.value = i
+    }
+
+    private fun recalculateParticipantExpenses(currentList: List<ExpenseParticipant>) {
+        val checkedParticipants = currentList.filter { it.isChecked }
+        if (checkedParticipants.isNotEmpty()) {
+            val checkedParticipantsSize = checkedParticipants.size
+            for (participant in checkedParticipants) {
+                participant.value = _expenseAmount.value!! / checkedParticipantsSize
+                _onNotifyItemChanged.value = currentList.indexOf(participant)
+            }
+        }
     }
 
     fun onNotifyItemChangedComplete() {

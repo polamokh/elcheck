@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -13,6 +12,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import me.polamokh.elcheck.R
 import me.polamokh.elcheck.databinding.FragmentOrderDetailsBinding
 import me.polamokh.elcheck.ui.AddOrderParticipantDialog
+import me.polamokh.elcheck.ui.BaseFragment
 import me.polamokh.elcheck.ui.SharedViewModel
 import me.polamokh.elcheck.ui.expenses.ExpensesFragment
 import me.polamokh.elcheck.ui.participants.ParticipantsFragment
@@ -20,9 +20,7 @@ import me.polamokh.elcheck.ui.valuesadded.ValuesAddedFragment
 import java.util.*
 
 @AndroidEntryPoint
-class OrderDetailsFragment : Fragment() {
-
-    private lateinit var binding: FragmentOrderDetailsBinding
+class OrderDetailsFragment : BaseFragment<FragmentOrderDetailsBinding>() {
 
     private val args: OrderDetailsFragmentArgs by navArgs()
 
@@ -36,9 +34,37 @@ class OrderDetailsFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun setupUI() {
+        setupViewPager()
 
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
+
+        sharedViewModel.orderName.observe(viewLifecycleOwner) {
+            binding.toolbar.title = it
+        }
+
+        binding.addParticipant.setOnClickListener {
+            onAddParticipantClick()
+        }
+        binding.addExpense.setOnClickListener {
+            onAddExpenseClick()
+        }
+        binding.addValueAdded.setOnClickListener {
+            onAddValueAddedClick()
+        }
+
+        sharedViewModel.orderTotalExpensesWithVA.observe(viewLifecycleOwner) {
+            binding.orderTotalExpenses.text = getString(
+                R.string.format_order_total_price,
+                Currency.getInstance(Locale.getDefault()).symbol,
+                it ?: 0.0
+            )
+        }
+    }
+
+    private fun setupViewPager() {
         val fragments = listOf(
             ParticipantsFragment.newInstance(args.orderId),
             ExpensesFragment.newInstance(args.orderId),
@@ -54,42 +80,28 @@ class OrderDetailsFragment : Fragment() {
                 else -> "Values Added"
             }
         }.attach()
+    }
 
-        binding.toolbar.setNavigationOnClickListener {
-            findNavController().navigateUp()
-        }
-
-        sharedViewModel.orderName.observe(viewLifecycleOwner) {
-            binding.toolbar.title = it
-        }
-
-        sharedViewModel.orderTotalExpensesWithVA.observe(viewLifecycleOwner) {
-            binding.orderTotalExpenses.text = getString(
-                R.string.format_order_total_price,
-                Currency.getInstance(Locale.getDefault()).symbol,
-                it ?: 0.0
+    private fun onAddValueAddedClick() {
+        findNavController().navigate(
+            OrderDetailsFragmentDirections.actionOrderDetailsFragmentToAddValueAddedFragment(
+                args.orderId
             )
-        }
+        )
+    }
 
-        binding.addParticipant.setOnClickListener {
-            AddOrderParticipantDialog(R.string.add_participant, R.string.hint_name) {
-                sharedViewModel.addParticipant(it)
-            }
-                .show(parentFragmentManager, null)
-        }
-        binding.addExpense.setOnClickListener {
-            findNavController().navigate(
-                OrderDetailsFragmentDirections.actionOrderDetailsFragmentToAddExpenseFragment(
-                    args.orderId
-                )
+    private fun onAddExpenseClick() {
+        findNavController().navigate(
+            OrderDetailsFragmentDirections.actionOrderDetailsFragmentToAddExpenseFragment(
+                args.orderId
             )
+        )
+    }
+
+    private fun onAddParticipantClick() {
+        AddOrderParticipantDialog(R.string.add_participant, R.string.hint_name) {
+            sharedViewModel.addParticipant(it)
         }
-        binding.addValueAdded.setOnClickListener {
-            findNavController().navigate(
-                OrderDetailsFragmentDirections.actionOrderDetailsFragmentToAddValueAddedFragment(
-                    args.orderId
-                )
-            )
-        }
+            .show(parentFragmentManager, null)
     }
 }

@@ -31,4 +31,6 @@
     <string name="format_empty_list">Empty %1$s list.\nPlease press + button to add new %2$s.</string>
     <string name="format_empty_list_with_msg">Empty %1$s list.\nPlease press + button to add new %2$s.\n\nPlease add %3$s before adding %4$s.</string>
     <string name="delete">Delete</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
 </resources>
