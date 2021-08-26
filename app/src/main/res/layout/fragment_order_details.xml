@@ -22,7 +22,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     app:navigationIcon="@drawable/ic_baseline_back"
-                    app:title="@string/title_order_details"
+                    app:title="@string/title_check_details"
                     tools:title="Pizza King" />
 
                 <com.google.android.material.tabs.TabLayout
@@ -68,21 +68,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:fab_icon="@drawable/ic_add_person"
-                app:label_text="Participant" />
+                app:label_text="@string/participant" />
 
             <com.nambimobile.widgets.efab.FabOption
                 android:id="@+id/add_expense"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:fab_icon="@drawable/ic_add_expense"
-                app:label_text="Expense" />
+                app:label_text="@string/expense" />
 
             <com.nambimobile.widgets.efab.FabOption
                 android:id="@+id/add_value_added"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:fab_icon="@drawable/ic_add_value_added"
-                app:label_text="Value Added" />
+                app:label_text="@string/value_added" />
         </com.nambimobile.widgets.efab.ExpandableFabLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

@@ -70,7 +70,6 @@
                     android:background="@drawable/bg_value_added_radio_button"
                     android:button="@null"
                     android:padding="8dp"
-                    android:text="@string/amount"
                     android:textAlignment="center"
                     android:textColor="@drawable/fg_value_added_radio_button_text" />
             </RadioGroup>

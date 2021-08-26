@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import me.polamokh.elcheck.data.local.order.Order
 import me.polamokh.elcheck.databinding.ItemOrderBinding
+import me.polamokh.elcheck.utils.getLocaleFormattedDateTime
+import java.util.*
 
 class OrdersAdapter(
     private val onClickListener: (order: Order) -> Unit,
@@ -34,6 +36,8 @@ class OrdersAdapter(
             onDeleteClickListener: (order: Order) -> Unit
         ) {
             binding.order = order
+            binding.orderDateTime.text =
+                order.orderTime.getLocaleFormattedDateTime(Locale.getDefault())
             binding.root.setOnClickListener { onClickListener(order) }
             binding.deleteOrder.setOnClickListener { onDeleteClickListener(order) }
             binding.executePendingBindings()

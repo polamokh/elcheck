@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Elcheck</string>
+    <string name="hint_expense_name">الاسم (اخياري)</string>
+    <string name="hint_expense_value">القيمة</string>
+    <string name="share_with">شارك مع</string>
+    <string name="add_expense">اضافة مصروف</string>
+    <string name="hint_value_added_value">القيمة</string>
+    <string name="hint_title">العنوان</string>
+    <string name="remove_value_added">حذف القيمة المضافة</string>
+    <string name="icon_value_added">رمز القيمة المضافة</string>
+    <string name="icon_expense">رمز المصروف</string>
+    <string name="add_participant">اضافة مشترك</string>
+    <string name="hint_name">الاسم</string>
+    <string name="format_price">%2$.2f %1$s</string>
+    <string name="format_order_total_price">الاجمالي: %2$.2f %1$s</string>
+    <string name="format_value_added">%1$.2f %2$s</string>
+    <string name="add_value_added">اضافة قيمة مضافة</string>
+    <string name="percentage">نسبة (%)</string>
+    <string name="amount">مبلغ (%1$s)</string>
+    <string name="participants">المشتركيين</string>
+    <string name="participant">مشترك</string>
+    <string name="values_added">القيم المضافة</string>
+    <string name="value_added">قيمة مضافة</string>
+    <string name="expenses">المصروفات</string>
+    <string name="expense">مصروف</string>
+    <string name="msg_add_expense">الرجاء إضافة المصاريف الخاصة بك دون القيمة المضافة.</string>
+    <string name="delete">حذف</string>
+    <string name="save">حفظ</string>
+    <string name="cancel">الغاء</string>
+    <string name="add_check">اضافة فاتورة</string>
+    <string name="check">فاتورة</string>
+    <string name="checks">الفواتير</string>
+    <string name="title_checks">الفواتير</string>
+    <string name="title_check_details">تفاصيل الفاتورة</string>
+    <string name="title_delete_check_dialog">حذف الفاتورة</string>
+    <string name="msg_delete_check_dialog">هل انت متأكد انك تريد حذف فاتورة %1$s؟</string>
+    <string name="format_empty_list">قائمة %1$s فارعة.\n من فضلك اضغظ علي زر + لاضافة %2$s جديد.</string>
+    <string name="format_empty_list_with_msg">قائمة %1$s فارعة.\n من فضلك اضغظ علي زر + لاضافة %2$s جديد.\n\nمن فضلك اضف %3$s قبل اضافة %4$s.</string>
+</resources>

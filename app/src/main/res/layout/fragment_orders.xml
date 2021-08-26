@@ -17,7 +17,7 @@
                 style="@style/Theme.Elcheck.Toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:title="@string/title_orders" />
+                app:title="@string/title_checks" />
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
-            android:contentDescription="@string/add_order"
+            android:contentDescription="@string/add_check"
             android:src="@drawable/ic_baseline_add"
             app:tint="@color/white" />
 

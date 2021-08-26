@@ -13,19 +13,21 @@
         <CheckBox
             android:id="@+id/participant_check"
             style="@style/Theme.Elcheck.Title"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
             android:textSize="16sp"
             tools:text="Name" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
         <TextView
             android:id="@+id/participant_value"
             style="@style/Theme.Elcheck.Title.Subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
             android:textSize="16sp"
             tools:text="$0.0" />
     </LinearLayout>

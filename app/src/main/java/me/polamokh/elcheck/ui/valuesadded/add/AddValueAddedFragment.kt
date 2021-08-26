@@ -13,6 +13,7 @@ import me.polamokh.elcheck.R
 import me.polamokh.elcheck.databinding.FragmentAddValueAddedBinding
 import me.polamokh.elcheck.ui.BaseFragment
 import me.polamokh.elcheck.utils.showSoftKeyboard
+import java.util.*
 
 @AndroidEntryPoint
 class AddValueAddedFragment : BaseFragment<FragmentAddValueAddedBinding>() {
@@ -30,14 +31,8 @@ class AddValueAddedFragment : BaseFragment<FragmentAddValueAddedBinding>() {
     override fun setupUI() {
         binding.valueAddedType.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
-                R.id.value_added_percentage -> {
-                    viewModel.setValueAddedType(true)
-                    binding.valueAddedValue.setStartIconDrawable(R.drawable.ic_percentage_value_added)
-                }
-                R.id.value_added_amount -> {
-                    viewModel.setValueAddedType(false)
-                    binding.valueAddedValue.setStartIconDrawable(R.drawable.ic_amount_value_added)
-                }
+                R.id.value_added_percentage -> viewModel.setValueAddedType(true)
+                R.id.value_added_amount -> viewModel.setValueAddedType(false)
             }
         }
 
@@ -63,6 +58,11 @@ class AddValueAddedFragment : BaseFragment<FragmentAddValueAddedBinding>() {
                 binding.saveValueAdded.isEnabled = isSaveValueAddedEnabled(s)
             }
         })
+
+        binding.valueAddedAmount.text = getString(
+            R.string.amount,
+            Currency.getInstance(Locale.getDefault()).symbol
+        )
 
         binding.valueAddedType.check(R.id.value_added_percentage)
 

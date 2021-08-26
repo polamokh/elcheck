@@ -27,8 +27,4 @@ interface ParticipantDao {
 
     @Query("SELECT * FROM participants WHERE participant_id = :participantId")
     suspend fun getParticipantById(participantId: Long): Participant?
-
-    /*@Transaction
-    @Query("SELECT * FROM participants WHERE participant_id = :participantId")
-    suspend fun getParticipantByIdWithExpenses(participantId: Long): ParticipantWithExpenses?*/
 }

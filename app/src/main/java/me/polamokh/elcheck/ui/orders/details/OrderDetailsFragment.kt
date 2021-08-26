@@ -75,9 +75,9 @@ class OrderDetailsFragment : BaseFragment<FragmentOrderDetailsBinding>() {
 
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = when (position) {
-                0 -> "Participants"
-                1 -> "Expenses"
-                else -> "Values Added"
+                0 -> getString(R.string.participants)
+                1 -> getString(R.string.expenses)
+                else -> getString(R.string.values_added)
             }
         }.attach()
     }
